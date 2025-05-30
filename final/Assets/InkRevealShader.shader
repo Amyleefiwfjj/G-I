@@ -1,9 +1,14 @@
 Shader "Unlit/NewUnlitShader"
 {
-    Properties
+   Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _BaseTex("Base Texture", 2D) = "white" {}
+        _InkTex("Ink Texture", 2D) = "black" {}
+        _RevealMask("Reveal Mask", 2D) = "white" {}
+        _RevealPos("Reveal Position", Vector) = (0, 0, 0, 0)
+        _RevealRadius("Reveal Radius", Float) = 0.1
     }
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -14,7 +19,6 @@ Shader "Unlit/NewUnlitShader"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
@@ -32,25 +36,36 @@ Shader "Unlit/NewUnlitShader"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            sampler2D _BaseTex;
+            sampler2D _InkTex;
+            sampler2D _RevealMask;
+            float4 _BaseTex_ST;
+            float4 _InkTex_ST;
 
-            v2f vert (appdata v)
+            float4 _RevealPos;
+            float _RevealRadius;
+
+            v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _BaseTex);
+                UNITY_TRANSFER_FOG(o, o.vertex);
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                float dist = distance(i.uv, _RevealPos.xy);
+                float mask = smoothstep(_RevealRadius, _RevealRadius * 0.5, dist);
+
+                fixed4 baseCol = tex2D(_BaseTex, i.uv);
+                fixed4 inkCol = tex2D(_InkTex, i.uv);
+
+                fixed4 finalCol = lerp(inkCol, baseCol, mask);
+
+                UNITY_APPLY_FOG(i.fogCoord, finalCol);
+                return finalCol;
             }
             ENDCG
         }
