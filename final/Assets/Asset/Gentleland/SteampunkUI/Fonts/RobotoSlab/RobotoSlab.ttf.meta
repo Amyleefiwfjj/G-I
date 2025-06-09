@@ -1,21 +1,3 @@
-fileFormatVersion: 2
-guid: 130d0ab50b4e89f46bffbc016fdcea68
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontNames:
-  - Roboto Slab
-  fallbackFontReferences: []
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  shouldRoundAdvanceValue: 1
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:4ec2a07f44ab08ed182f19b66933b1fb4be53cf9471f50033a70b8849fd8f8ce
+size 476

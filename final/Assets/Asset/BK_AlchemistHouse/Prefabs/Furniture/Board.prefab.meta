@@ -1,11 +1,3 @@
-fileFormatVersion: 2
-guid: 38048b618ab289c40bd4e1fe0b7f3b84
-labels:
-- Furniture
-timeCreated: 1502757086
-licenseType: Store
-NativeFormatImporter:
-  mainObjectFileID: 100100000
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:7f4e20a315f7ff073d7a43c1a163a8872d397abdffe59c08efc95cfe0e9e6b02
+size 231
