@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: adoptHide
   m_EditorClassIdentifier: 
   itemName: hiddedadopt
+  ItemID: 3
   itemIcon: {fileID: 0}
   itemDescription: 

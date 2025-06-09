@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;  // 클릭 이벤트 등을 위해
 
 public class InventoryUIManager : MonoBehaviour
 {
-
     private string previousSceneName = ""; //인벤토리를 연 씬의 이름 저장용
     [Header("UI Slot Buttons")]
     public Button[] slotButtons;        // 슬롯 버튼들 (6개)
@@ -15,19 +14,20 @@ public class InventoryUIManager : MonoBehaviour
     [Header("Description Area")]
     public Text nameText;
     public Text descriptionText;        // box_description 아래에 있는 Text 컴포넌트
-    [Header("Use Button")]
+    [Header("Button")]
     public Button useButton;            // “Use” 버튼
     public Button backButton;
 
     [Header("UI Panels")]
-    public GameObject boxWideView;   
-
+    public GameObject boxWideView;
+    public Text warningText;
     private List<ItemData> currentItems;  // 인벤토리 매니저에서 가져온 리스트
     private int selectedSlotIndex = -1;   // 현재 선택된 슬롯 인덱스
 
     void Start()
     {
-        previousSceneName = SceneManager.GetActiveScene().name; //UI열기 전에 전 씬 이름부터 저장
+        warningText.text = "";
+        //previousSceneName = SceneManager.GetActiveScene().name; //UI열기 전에 전 씬 이름부터 저장 @@
         // 슬롯 버튼에 클릭 이벤트 연결
         for (int i = 0; i < slotButtons.Length; i++)
         {
@@ -132,7 +132,28 @@ public class InventoryUIManager : MonoBehaviour
 
         ItemData selectedItem = currentItems[selectedSlotIndex];
 
-        ConsumeItem(selectedItem);
+        if (InventoryManager.Instance.CanStartMiniGame(1))
+        {
+            // 조건을 만족하면 ConsumeItem을 호출
+            ConsumeItemsByID(1);
+        }
+
+        if (InventoryManager.Instance.CanStartMiniGame(2))
+        {
+            // 조건을 만족하면 ConsumeItem을 호출
+            ConsumeItemsByID(2);
+        }
+
+        //if (InventoryManager.Instance.CanStartMiniGame(3))
+        //{
+        //    // 조건을 만족하면 ConsumeItem을 호출
+        //    ConsumeItemsByID(3);
+        //}
+        else
+        {
+            // 조건을 만족하지 않으면 경고 메시지 또는 UI 업데이트
+            Debug.Log("[Inventory] 아이템을 사용할 수 없습니다. 조건을 만족하지 않습니다.");
+        }
     }
     private void OnBackButtonClicked()
     {
@@ -160,25 +181,40 @@ public class InventoryUIManager : MonoBehaviour
         }
 
         // 이전 씬으로 돌아가기
-        SceneManager.LoadScene(previousSceneName);
+        //SceneManager.LoadScene(previousSceneName); //@@
     }
-    // 실제 아이템 소비 로직 예시
+
+    private void ConsumeItemsByID(int itemID)
+    {
+        // itemID에 맞는 아이템들을 찾아서 소비
+        List<ItemData> itemsToConsume = currentItems.FindAll(item => item.ItemID == itemID);
+
+        // 아이템을 하나씩 소비
+        foreach (ItemData item in itemsToConsume)
+        {
+            // 기존의 ConsumeItem을 호출하여 아이템을 제거하고 미니게임을 체크
+            ConsumeItem(item);
+        }
+    }
+
     private void ConsumeItem(ItemData item)
     {
+
         InventoryManager.Instance.GetItemList().Remove(item);
+        InventoryManager.Instance.CheckForMiniGames();
+
         RefreshUI();
     }
 
-    // (선택한 슬롯에 하이라이트를 주고 싶을 때)
     private void HighlightSelectedSlot(int index)
     {
-        // 예: 모든 슬롯 배경을 기본으로 돌린 뒤
+        // 모든 슬롯 배경을 기본으로 돌린 뒤
         for (int i = 0; i < slotButtons.Length; i++)
         {
-            // 슬롯 배경(Image)나 Color 등 초기화 (커스텀 방식)
+            // 슬롯Color 초기화
             slotButtons[i].GetComponent<Image>().color = Color.white;
         }
-        // 선택된 슬롯만 강조 (노란색 테두리 등)
+        // 선택된 슬롯만 강조
         slotButtons[index].GetComponent<Image>().color = Color.yellow;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -26,9 +27,7 @@ public class InventoryManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    /// <summary>
     /// ItemData 형태의 아이템을 인벤토리에 추가합니다.
-    /// </summary>
     public void AddItem(ItemData item)
     {
         if (item == null || items.Contains(item)) return;
@@ -47,8 +46,8 @@ public class InventoryManager : MonoBehaviour
         items.Remove(existingItem);
         Debug.Log($"[Inventory] '{item.itemName}' 아이템이 제거되었습니다.");
     }
-    // 미니게임 시작 함수 (게임에 맞게 수정)
-    private void CheckForMiniGames()
+
+    public void CheckForMiniGames()
     {
         int countForGame1 = GetItemCountForGame(1);
         int countForGame2 = GetItemCountForGame(2);
@@ -72,6 +71,30 @@ public class InventoryManager : MonoBehaviour
         //}
     }
 
+    public bool CanStartMiniGame(int gameNumber)
+    {
+        int itemCount = GetItemCountForGame(gameNumber);
+
+        // 미니게임 1
+        if (gameNumber == 1)
+        {
+            return itemCount >= tapeFound;
+        }
+        // 미니게임 2
+        else if (gameNumber == 2)
+        {
+            return itemCount >= newsFound;
+        }
+        // 미니게임 3 (조건 추가)
+        //else if (gameNumber == 3)
+        //{
+        //    return itemCount >= adoptFound;
+        //}
+
+        // 기본적으로 조건을 만족하지 않음
+        return false;
+    }
+
     //특정 미니게임에 필요한 아이템 개수 세는 함수
     private int GetItemCountForGame(int gameNumber)
     {
@@ -92,14 +115,50 @@ public class InventoryManager : MonoBehaviour
 
     private void StartMiniGame(int gameNumber)
     {
-        // 미니게임을 시작하는 로직 (씬 전환, UI 갱신 등)
-        // 예: MiniGameManager.Instance.StartGame(gameNumber);
-        Debug.Log($"미니게임 {gameNumber}을(를) 시작합니다.");
+        // 미니게임 1 시작
+        if (gameNumber == 1)
+        {
+            // 미니게임 1에 필요한 초기화 작업
+            Debug.Log("[Inventory] 미니게임 1을 시작합니다.");
+
+            // 미니게임 1의 씬 전환
+            // SceneManager.LoadScene("MiniGame1Scene");  // 씬을 전환하려면 UnityEngine.SceneManagement 네임스페이스 필요
+
+            // 필요한 초기화 및 데이터 처리
+            //MiniGameManager.Instance.InitializeGame(gameNumber);
+        }
+        // 미니게임 2 시작
+        else if (gameNumber == 2)
+        {
+            // 미니게임 2에 필요한 초기화 작업
+            Debug.Log("[Inventory] 미니게임 2를 시작합니다.");
+
+            // 예시: 미니게임 2의 씬 전환
+            // SceneManager.LoadScene("MiniGame2Scene");
+
+            // 필요한 초기화 및 데이터 처리
+            // MiniGameManager.Instance.InitializeGame(gameNumber);
+        }
+        // 미니게임 3 시작
+        else if (gameNumber == 3)
+        {
+            // 미니게임 3에 필요한 초기화 작업
+            Debug.Log("[Inventory] 미니게임 3을 시작합니다.");
+
+            // 예시: 미니게임 3의 씬 전환
+            // SceneManager.LoadScene("MiniGame3Scene");
+
+            // 필요한 초기화 및 데이터 처리
+            // MiniGameManager.Instance.InitializeGame(gameNumber);
+        }
+        else
+        {
+            Debug.LogWarning("[Inventory] 존재하지 않는 미니게임 번호입니다.");
+        }
     }
 
-    /// <summary>
+
     /// 현재 인벤토리 목록을 디버그 로그로 출력합니다.
-    /// </summary>
     public void PrintInventoryContents() //디버깅용임
     {
         Debug.Log("=== 인벤토리 목록 ===");
@@ -110,9 +169,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("=====================");
     }
 
-    /// <summary>
     /// UI 또는 외부에서 인벤토리 내역을 가져갈 때 사용합니다.
-    /// </summary>
     public List<ItemData> GetItemList()
     {
         return new List<ItemData>(items);  // 새로운 리스트를 반환하여 외부에서 수정되지 않도록

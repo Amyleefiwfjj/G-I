@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: adoptReveal
   m_EditorClassIdentifier: 
   itemName: adopt
+  ItemID: 3
   itemIcon: {fileID: 0}
   itemDescription: 

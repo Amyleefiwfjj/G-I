@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: tape4
   m_EditorClassIdentifier: 
   itemName: tape3
+  ItemID: 1
   itemIcon: {fileID: 21300000, guid: 9c6091065fc614c4a9e972ff5b66bb58, type: 3}
   itemDescription: "\uC774\uAC8C \uC5B4\uBA38\uB2C8\uC758 \uBAA9\uC18C\uB9AC\uAC00
     \uB2F4\uAE34 \uD14C\uC774\uD504\uC77C\uAE4C?\n1969\uB144 11\uC6D4 21\uC77C\uC5D0

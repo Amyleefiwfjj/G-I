@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: news 1
   m_EditorClassIdentifier: 
   itemName: news1
+  ItemID: 2
   itemIcon: {fileID: 21300000, guid: 6fafb210774699c46a8ac815c6ad6c35, type: 3}
   itemDescription: "\uCC22\uC5B4\uC9C4 \uC2E0\uBB38 \uAE30\uC0AC\uC758 \uCCAB\uBC88\uC9F8
     \uC870\uAC01\uC774\uB2E4"
