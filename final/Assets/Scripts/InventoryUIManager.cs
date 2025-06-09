@@ -152,9 +152,15 @@ public class InventoryUIManager : MonoBehaviour
         else
         {
             // 조건을 만족하지 않으면 경고 메시지 또는 UI 업데이트
-            Debug.Log("[Inventory] 아이템을 사용할 수 없습니다. 조건을 만족하지 않습니다.");
+            DisplayWarning("아이템을 다 찾지 않았습니다.");
         }
     }
+    private void DisplayWarning(string message)
+    {
+        warningText.text = message;  // 텍스트 UI의 텍스트를 변경하여 경고 메시지 표시
+        Invoke("ClearWarning", 3f);//3초 뒤 사라짐
+    }
+
     private void OnBackButtonClicked()
     {
         if(selectedSlotIndex>=0 &&  selectedSlotIndex < currentItems.Count)
