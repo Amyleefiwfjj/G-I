@@ -27,15 +27,7 @@ Desktop.ini
 *.pdb
 *.mdb
 
-# Unity LFS suggestion
-*.psd
-*.png
-*.jpg
-*.tga
-*.wav
-*.mp3
-*.mp4
-*.mov
+
 
 # Unity cloud build
 .cloud/
