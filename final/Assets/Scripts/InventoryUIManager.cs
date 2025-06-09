@@ -1,23 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;  // 클릭 이벤트 등을 위해
 
 public class InventoryUIManager : MonoBehaviour
 {
+
+    private string previousSceneName = ""; //인벤토리를 연 씬의 이름 저장용
     [Header("UI Slot Buttons")]
     public Button[] slotButtons;        // 슬롯 버튼들 (6개)
     public Image[] slotIcons;           // 슬롯 버튼 내의 Image 컴포넌트 (아이콘 표시용)
     [Header("Description Area")]
+    public Text nameText;
     public Text descriptionText;        // box_description 아래에 있는 Text 컴포넌트
     [Header("Use Button")]
     public Button useButton;            // “Use” 버튼
+    public Button backButton;
+
+    [Header("UI Panels")]
+    public GameObject boxWideView;   
 
     private List<ItemData> currentItems;  // 인벤토리 매니저에서 가져온 리스트
     private int selectedSlotIndex = -1;   // 현재 선택된 슬롯 인덱스
 
     void Start()
     {
+        previousSceneName = SceneManager.GetActiveScene().name; //UI열기 전에 전 씬 이름부터 저장
         // 슬롯 버튼에 클릭 이벤트 연결
         for (int i = 0; i < slotButtons.Length; i++)
         {
@@ -27,9 +37,10 @@ public class InventoryUIManager : MonoBehaviour
 
         // useButton 클릭 시 호출될 메서드 연결
         useButton.onClick.AddListener(OnUseButtonClicked);
-
+        backButton.onClick.AddListener(OnBackButtonClicked);
         // 처음엔 설명 텍스트와 Use 버튼을 비활성화(또는 빈 상태)로 둔다
-        descriptionText.text = "";
+        nameText.text = "name";
+        descriptionText.text = "description";
         useButton.interactable = false;
 
         // 인벤토리 UI를 갱신
@@ -62,6 +73,28 @@ public class InventoryUIManager : MonoBehaviour
             }
         }
 
+        int tapeCount = currentItems.Count(item => item.ItemID == 1);
+
+        if (tapeCount >= 6)  // 테이프 아이템이 6개 이상 모였으면
+        {
+            descriptionText.text = "테이프를 모두 모았습니다. 원본 테이프를 찾으러 갑시다!";
+        }
+
+        int newsCount = currentItems.Count(item => item.ItemID == 2);
+
+        if (tapeCount >= 4)  // 테이프 아이템이 6개 이상 모였으면
+        {
+            descriptionText.text = "신문 조각을 모두 모았습니다. 신문 기사가 어떤 내용이였을까요?";
+        }
+
+        int adoptCount = currentItems.Count(item => item.ItemID == 3);
+
+        //if (tapeCount >= ?)  // 아이템이 모였으면
+        //{
+        //    descriptionText.text = "";
+        //}
+
+
         // 선택 상태 초기화
         selectedSlotIndex = -1;
         descriptionText.text = "";
@@ -77,10 +110,12 @@ public class InventoryUIManager : MonoBehaviour
 
         // 해당 슬롯을 선택
         selectedSlotIndex = index;
-        ItemData sel = currentItems[index];
+        ItemData selectedItem = currentItems[index];
 
         // 설명 텍스트에 아이템 이름·설명 표시
-        descriptionText.text = $"[{sel.itemName}]\n{sel.itemDescription}";
+        nameText.text = $"[{selectedItem.itemName}]";
+        descriptionText.text = $"[{selectedItem.itemDescription}";
+        boxWideView.GetComponent<Image>().sprite = selectedItem.itemIcon;
 
         // Use 버튼 활성화
         useButton.interactable = true;
@@ -95,24 +130,42 @@ public class InventoryUIManager : MonoBehaviour
         if (selectedSlotIndex < 0 || selectedSlotIndex >= currentItems.Count)
             return;
 
-        ItemData sel = currentItems[selectedSlotIndex];
+        ItemData selectedItem = currentItems[selectedSlotIndex];
 
-        // 예시: 사용 가능한 모든 아이템을 “소비”하고 목록에서 제거하는 로직
-        // 실제 게임 로직에 맞춰 이 부분을 구현
-        ConsumeItem(sel);
+        ConsumeItem(selectedItem);
+    }
+    private void OnBackButtonClicked()
+    {
+        if(selectedSlotIndex>=0 &&  selectedSlotIndex < currentItems.Count)
+        {
+            selectedSlotIndex = -1;
+            nameText.text = "";
+            descriptionText.text="";
+            useButton.interactable = false;
+
+            RefreshUI();
+        }
+        else
+        {
+            CloseInventory();
+        }
     }
 
+    private void CloseInventory()
+    {
+        if (string.IsNullOrEmpty(previousSceneName))
+        {
+            Debug.LogWarning("Previous scene name is not set.");
+            return;
+        }
+
+        // 이전 씬으로 돌아가기
+        SceneManager.LoadScene(previousSceneName);
+    }
     // 실제 아이템 소비 로직 예시
     private void ConsumeItem(ItemData item)
     {
-        // 1) InventoryManager에서 제거
         InventoryManager.Instance.GetItemList().Remove(item);
-
-        // 2) 필요하다면 아이템 효과 적용: e.g. 체력 회복, 열쇠 해제 등
-        //    예) PlayerHealth.Instance.Heal(10);
-        //    또는 해당 아이템 타입에 맞는 콜백 호출
-
-        // 3) UI 갱신
         RefreshUI();
     }
 
