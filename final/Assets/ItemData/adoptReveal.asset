@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62c8671bebf1fb54d92f239c9dbd397c, type: 3}
-  m_Name: tape1
+  m_Name: adoptReveal
   m_EditorClassIdentifier: 
-  itemName: Mai
+  itemName: adopt
   itemIcon: {fileID: 0}
   itemDescription: 

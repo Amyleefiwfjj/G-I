@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62c8671bebf1fb54d92f239c9dbd397c, type: 3}
   m_Name: tape2
   m_EditorClassIdentifier: 
-  itemName: wrong1
-  itemIcon: {fileID: 0}
-  itemDescription: 
+  itemName: tape1
+  itemIcon: {fileID: 21300000, guid: 3d9941ec22cdd884dbb9452839d0d605, type: 3}
+  itemDescription: "\uC774\uAC8C \uC5B4\uBA38\uB2C8\uC758 \uBAA9\uC18C\uB9AC\uAC00
+    \uB2F4\uAE34 \uD14C\uC774\uD504\uC77C\uAE4C?\n1988\uB144 2\uC6D4 12\uC77C\uC5D0
+    \uB9CC\uB4E4\uC5B4\uC84C\uB2E4\uACE0 \uC368\uC788\uB124\n"

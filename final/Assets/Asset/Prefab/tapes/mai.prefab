@@ -9,9 +9,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7042492968380060354, guid: bad1ca25a217b454d99b8afab3e693ed, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d85c233db683a1a4da0e3388900ee945, type: 2}
+    - target: {fileID: 7961754939344461647, guid: bad1ca25a217b454d99b8afab3e693ed, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 760fb5ba47c88f44a8dfcf67a00f4f26, type: 2}
     - target: {fileID: 8210302735189617069, guid: bad1ca25a217b454d99b8afab3e693ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8843673816532349719, guid: bad1ca25a217b454d99b8afab3e693ed, type: 3}
       propertyPath: m_Name
-      value: tape Variant
+      value: mai
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
