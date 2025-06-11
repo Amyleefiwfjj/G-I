@@ -19,7 +19,9 @@ public class InventoryUIManager : MonoBehaviour
     public Button backButton;
 
     [Header("UI Panels")]
+    public GameObject inventoryPanel;
     public GameObject boxWideView;
+    public GameObject existingUI;
     public Text warningText;
     private List<ItemData> currentItems;  // 인벤토리 매니저에서 가져온 리스트
     private int selectedSlotIndex = -1;   // 현재 선택된 슬롯 인덱스
@@ -27,8 +29,6 @@ public class InventoryUIManager : MonoBehaviour
     void Start()
     {
         warningText.text = "";
-        //previousSceneName = SceneManager.GetActiveScene().name; //UI열기 전에 전 씬 이름부터 저장 @@
-        // 슬롯 버튼에 클릭 이벤트 연결
         for (int i = 0; i < slotButtons.Length; i++)
         {
             int index = i;  // 캡처 문제 방지용 로컬 변수
@@ -45,6 +45,8 @@ public class InventoryUIManager : MonoBehaviour
 
         // 인벤토리 UI를 갱신
         RefreshUI();
+        inventoryPanel.SetActive(false);
+        existingUI.SetActive(true);
     }
 
     // 인벤토리 UI 전체를 새로 그려 주는 메서드
@@ -174,21 +176,15 @@ public class InventoryUIManager : MonoBehaviour
         }
         else
         {
-            CloseInventory();
+            inventoryPanel.SetActive(false);
+            existingUI.SetActive(true);
         }
     }
-
-    private void CloseInventory()
+    public void OpenInventory()
     {
-        if (string.IsNullOrEmpty(previousSceneName))
-        {
-            Debug.LogWarning("Previous scene name is not set.");
-            return;
-        }
-
-        // 이전 씬으로 돌아가기
-        //SceneManager.LoadScene(previousSceneName); //@@
+        inventoryPanel.SetActive(true);  // 인벤토리 UI 활성화
     }
+
 
     private void ConsumeItemsByID(int itemID)
     {
@@ -212,7 +208,7 @@ public class InventoryUIManager : MonoBehaviour
         RefreshUI();
     }
 
-    private void HighlightSelectedSlot(int index)
+private void HighlightSelectedSlot(int index)
     {
         // 모든 슬롯 배경을 기본으로 돌린 뒤
         for (int i = 0; i < slotButtons.Length; i++)

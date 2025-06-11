@@ -102,6 +102,7 @@ public class FreeCameraWithPickup : MonoBehaviour
     /// </summary>
     private void HandleDragging()
     {
+
         // (1) 마우스 왼쪽 클릭해서 오브젝트 선택
         if (Input.GetMouseButtonDown(0))
         {

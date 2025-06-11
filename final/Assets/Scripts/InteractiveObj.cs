@@ -3,17 +3,17 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     // 인벤토리에 저장할 정보
-    public ItemData data;
+    public ItemData itemData;
 
     public void Pickup()
     {
-        if (data == null)
+        if (itemData == null)
         {
             Debug.LogWarning($"[{name}]에 ItemData가 할당되지 않았습니다.");
             return;
         }
 
-        InventoryManager.Instance.AddItem(data);
+        InventoryManager.Instance.AddItem(itemData);
         gameObject.SetActive(false);
     }
 }

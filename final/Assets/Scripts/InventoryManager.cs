@@ -122,7 +122,7 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("[Inventory] 미니게임 1을 시작합니다.");
 
             // 미니게임 1의 씬 전환
-            // SceneManager.LoadScene("MiniGame1Scene");  // 씬을 전환하려면 UnityEngine.SceneManagement 네임스페이스 필요
+            SceneManager.LoadScene("MiniGame1Scene");  // 씬을 전환하려면 UnityEngine.SceneManagement 네임스페이스 필요
 
             // 필요한 초기화 및 데이터 처리
             //MiniGameManager.Instance.InitializeGame(gameNumber);
@@ -145,7 +145,7 @@ public class InventoryManager : MonoBehaviour
             // 미니게임 3에 필요한 초기화 작업
             Debug.Log("[Inventory] 미니게임 3을 시작합니다.");
 
-            // 예시: 미니게임 3의 씬 전환
+            // 예시: 미니게임 3의 씬 전
             // SceneManager.LoadScene("MiniGame3Scene");
 
             // 필요한 초기화 및 데이터 처리
