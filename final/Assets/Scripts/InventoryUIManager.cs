@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;  // 클릭 이벤트 등을 위해
 
 public class InventoryUIManager : MonoBehaviour
 {
-    private string previousSceneName = ""; //인벤토리를 연 씬의 이름 저장용
     [Header("UI Slot Buttons")]
     public Button[] slotButtons;        // 슬롯 버튼들 (6개)
     public Image[] slotIcons;           // 슬롯 버튼 내의 Image 컴포넌트 (아이콘 표시용)
@@ -25,7 +24,6 @@ public class InventoryUIManager : MonoBehaviour
     public Text warningText;
     private List<ItemData> currentItems;  // 인벤토리 매니저에서 가져온 리스트
     private int selectedSlotIndex = -1;   // 현재 선택된 슬롯 인덱스
-
     void Start()
     {
         warningText.text = "";
@@ -35,6 +33,8 @@ public class InventoryUIManager : MonoBehaviour
             slotButtons[i].onClick.AddListener(() => OnSlotClicked(index));
         }
 
+        RefreshUI();
+        UpdateInventoryUI();
         // useButton 클릭 시 호출될 메서드 연결
         useButton.onClick.AddListener(OnUseButtonClicked);
         backButton.onClick.AddListener(OnBackButtonClicked);
@@ -47,6 +47,63 @@ public class InventoryUIManager : MonoBehaviour
         RefreshUI();
         inventoryPanel.SetActive(false);
         existingUI.SetActive(true);
+    }
+    public void UpdateInventoryUI()
+    {
+        if (slotButtons == null || slotIcons == null)
+        {
+            Debug.LogError("Slot buttons or slot icons are not assigned!");
+            return;
+        }
+
+        // currentItems가 null인지 확인
+        if (currentItems == null)
+        {
+            Debug.LogError("currentItems is null! Cannot update inventory UI.");
+            return;
+        }
+        // 슬롯 아이템이 UI에 추가될 수 있도록 반복문으로 처리
+        for (int i = 0; i < slotButtons.Length; i++)
+        {
+            if (i < currentItems.Count)
+            {
+                // 아이템이 있을 때는 슬롯을 활성화하고 아이콘 표시
+                slotButtons[i].gameObject.SetActive(true);
+                slotIcons[i].sprite = currentItems[i].itemIcon;
+                slotIcons[i].color = Color.white;         // 아이콘을 원래 색상으로
+                slotButtons[i].onClick.RemoveAllListeners();
+                int index = i;  // 슬롯 인덱스를 캡처
+                slotButtons[i].onClick.AddListener(() => ShowItemDetails(currentItems[index]));
+            }
+            else
+            {
+                // 아이템이 없으면 빈 슬롯 처리
+                slotButtons[i].gameObject.SetActive(false);  // 슬롯을 비활성화
+            }
+        }
+    }
+    public void ShowItemDetails(ItemData itemData)
+    {
+        // Ensure itemData is not null
+        if (itemData == null)
+        {
+            Debug.LogError("ItemData is null! Cannot display item details.");
+            return;
+        }
+
+        // Update the UI elements with the item details
+        nameText.text = itemData.itemName;
+        descriptionText.text = itemData.itemDescription;
+
+        // Update the icon for the selected item in the inventory
+        if (selectedSlotIndex >= 0 && selectedSlotIndex < slotIcons.Length)
+        {
+            slotIcons[selectedSlotIndex].sprite = itemData.itemIcon;
+        }
+        else
+        {
+            Debug.LogError("Invalid slot index!");
+        }
     }
 
     // 인벤토리 UI 전체를 새로 그려 주는 메서드
@@ -73,6 +130,9 @@ public class InventoryUIManager : MonoBehaviour
                 slotIcons[i].color = new Color(0, 0, 0, 0);  // 완전 투명 혹은 회색 처리
                 slotButtons[i].interactable = false;
             }
+            selectedSlotIndex = -1;
+            descriptionText.text = "";
+            useButton.interactable = false;
         }
 
         int tapeCount = currentItems.Count(item => item.ItemID == 1);
@@ -125,9 +185,15 @@ public class InventoryUIManager : MonoBehaviour
         // (선택 표시를 위해 슬롯 경계 색상을 바꾸거나 하이라이트 처리하고 싶으면 이곳에 로직 추가)
         HighlightSelectedSlot(index);
     }
+    // In InventoryUIManager
+    public void ClearWarning()
+    {
+        warningText.text = "";  // Clear the warning message
+        warningText.gameObject.SetActive(false); // Hide the warning text
+    }
 
     // Use 버튼 클릭 시 호출됨
-    private void OnUseButtonClicked()
+    public void OnUseButtonClicked()
     {
         if (selectedSlotIndex < 0 || selectedSlotIndex >= currentItems.Count)
             return;
@@ -159,11 +225,12 @@ public class InventoryUIManager : MonoBehaviour
     }
     private void DisplayWarning(string message)
     {
-        warningText.text = message;  // 텍스트 UI의 텍스트를 변경하여 경고 메시지 표시
-        Invoke("ClearWarning", 3f);//3초 뒤 사라짐
+        warningText.text = message;  // Update the warning message text
+        warningText.gameObject.SetActive(true); // Make the warning text visible
+        Invoke("ClearWarning", 3f); // Invoke ClearWarning after 3 seconds
     }
 
-    private void OnBackButtonClicked()
+    public void OnBackButtonClicked()
     {
         if(selectedSlotIndex>=0 &&  selectedSlotIndex < currentItems.Count)
         {

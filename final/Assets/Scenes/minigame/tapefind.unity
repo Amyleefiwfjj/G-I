@@ -55271,15 +55271,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1635575750848544341, guid: aae28d21e83cbcd49a28a87a1bb87375, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.39
+      value: 8.276
       objectReference: {fileID: 0}
     - target: {fileID: 1635575750848544341, guid: aae28d21e83cbcd49a28a87a1bb87375, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.591
+      value: -2.27
       objectReference: {fileID: 0}
     - target: {fileID: 1635575750848544341, guid: aae28d21e83cbcd49a28a87a1bb87375, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.03
+      value: 0.108
       objectReference: {fileID: 0}
     - target: {fileID: 1635575750848544341, guid: aae28d21e83cbcd49a28a87a1bb87375, type: 3}
       propertyPath: m_LocalRotation.w
@@ -76822,19 +76822,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1802060943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1740698714}
-        m_TargetAssemblyTypeName: InventoryUIManager, Assembly-CSharp
-        m_MethodName: OnUseButtonClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1802060943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89067,19 +89055,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2078129331}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1740698714}
-        m_TargetAssemblyTypeName: InventoryUIManager, Assembly-CSharp
-        m_MethodName: OnBackButtonClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2078129331
 MonoBehaviour:
   m_ObjectHideFlags: 0

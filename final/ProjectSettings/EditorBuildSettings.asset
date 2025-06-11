@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/tape.unity
+    path: Assets/Scenes/minigame/tapefind.unity
     guid: 0dde8e03695d1d0428fc4ade1ecb646a
   - enabled: 1
     path: Assets/Scenes/UI/inventory.unity
     guid: 0bb69119d77347648a1c1bfa90feee47
+  - enabled: 1
+    path: Assets/Scenes/minigame/news.unity
+    guid: c48f32c3ca1957045bd48207172ee3dc
+  - enabled: 1
+    path: Assets/Scenes/minigame/tapeGame.unity
+    guid: 29a841c8bcb872c47b1dc886af4bcbe5
+  - enabled: 1
+    path: Assets/Scenes/minigame/adopt.unity
+    guid: 9f3b2a193acb1b64a8abff2758295846
   m_configObjects: {}

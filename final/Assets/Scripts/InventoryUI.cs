@@ -1,5 +1,7 @@
+
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class InventoryUI : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class InventoryUI : MonoBehaviour
 
     public void ShowItemDetails(ItemData itemData)
     {
+        // Update UI with item details
         itemNameText.text = itemData.itemName;
         itemDescriptionText.text = itemData.itemDescription;
         itemIconImage.sprite = itemData.itemIcon;

@@ -100,14 +100,15 @@ public class FreeCameraWithPickup : MonoBehaviour
     /// 드래그 상태라면 매 프레임 오브젝트를 움직이고, 카메라와의 거리를 계산하여
     /// 인벤토리 메시지를 표시하거나 숨깁니다.
     /// </summary>
-    private void HandleDragging()
+    void HandleDragging()
     {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
         // (1) 마우스 왼쪽 클릭해서 오브젝트 선택
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, interactableLayer))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactableLayer))
             {
                 selectedObject = hit.transform;
 
@@ -126,7 +127,6 @@ public class FreeCameraWithPickup : MonoBehaviour
         // (2) 마우스 버튼을 누르고 있을 때: 오브젝트 이동 및 거리 체크
         if (selectedObject != null && Input.GetMouseButton(0))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             if (dragPlane.Raycast(ray, out float enter))
             {
                 Vector3 hitPoint = ray.GetPoint(enter);
@@ -141,11 +141,11 @@ public class FreeCameraWithPickup : MonoBehaviour
                     if (currentDist <= pickupDistance)
                     {
                         promptText.text = "인벤토리에 넣으시겠습니까? (E 키)";
-                        promptText.gameObject.SetActive(true);
+                        promptText.gameObject.SetActive(true); // 메시지 표시
                     }
                     else
                     {
-                        HidePrompt();
+                        HidePrompt(); // 메시지 숨기기
                     }
                 }
             }
@@ -156,6 +156,19 @@ public class FreeCameraWithPickup : MonoBehaviour
         {
             ReleaseSelected();
             HidePrompt();
+        }
+
+        // (4) E 키 눌렀을 때 아이템을 인벤토리에 추가
+        if (promptText != null && promptText.gameObject.activeSelf && selectedObject != null && Input.GetKeyDown(KeyCode.E))
+        {
+            var interactable = selectedObject.GetComponent<InteractableObject>();
+            if (interactable != null)
+            {
+                // 아이템을 인벤토리에 추가
+                interactable.Pickup();
+                ReleaseSelected();
+                HidePrompt();
+            }
         }
     }
 

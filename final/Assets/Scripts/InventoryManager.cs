@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
-
+    public InventoryUIManager inventoryUIManager;
     // 인벤토리에 담긴 아이템(ItemData)을 저장하는 리스트
     private List<ItemData> items = new List<ItemData>();
 
@@ -23,7 +23,12 @@ public class InventoryManager : MonoBehaviour
         }
         Instance = this;
 
-        // 씬 전환 시에도 파괴되지 않도록 설정
+        // 씬 전환 시에
+        if (inventoryUIManager == null)
+        {
+            Debug.LogWarning("inventoryUIManager is not assigned!");
+        }
+        //도 파괴되지 않도록 설정
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -36,6 +41,7 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"[Inventory] '{item.itemName}' 아이템이 추가되었습니다.");
 
         CheckForMiniGames();
+        inventoryUIManager.RefreshUI();
     }
     public void RemoveItem(ItemData item)
     {
@@ -122,7 +128,7 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("[Inventory] 미니게임 1을 시작합니다.");
 
             // 미니게임 1의 씬 전환
-            SceneManager.LoadScene("MiniGame1Scene");  // 씬을 전환하려면 UnityEngine.SceneManagement 네임스페이스 필요
+            SceneManager.LoadScene("tapeGame");  // 씬을 전환하려면 UnityEngine.SceneManagement 네임스페이스 필요
 
             // 필요한 초기화 및 데이터 처리
             //MiniGameManager.Instance.InitializeGame(gameNumber);
