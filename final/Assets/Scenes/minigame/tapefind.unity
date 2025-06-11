@@ -11212,6 +11212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 264014494}
+  - component: {fileID: 264014495}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -11246,6 +11247,28 @@ Transform:
   - {fileID: 913056589}
   m_Father: {fileID: 893356486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &264014495
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264014493}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &265294896
 GameObject:
   m_ObjectHideFlags: 0
@@ -32717,6 +32740,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716149537}
+  - component: {fileID: 716149538}
   m_Layer: 0
   m_Name: Ceilings
   m_TagString: Untagged
@@ -32746,6 +32770,28 @@ Transform:
   - {fileID: 639744848}
   m_Father: {fileID: 893356486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &716149538
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716149536}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &716170888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41447,6 +41493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 972520838}
+  - component: {fileID: 972520839}
   m_Layer: 0
   m_Name: Floors
   m_TagString: Untagged
@@ -41479,6 +41526,28 @@ Transform:
   - {fileID: 1038948253}
   m_Father: {fileID: 893356486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &972520839
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972520837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &973703622
 GameObject:
   m_ObjectHideFlags: 0

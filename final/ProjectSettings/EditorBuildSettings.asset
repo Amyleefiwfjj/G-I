@@ -20,4 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/minigame/adopt.unity
     guid: 9f3b2a193acb1b64a8abff2758295846
+  - enabled: 1
+    path: Assets/Scenes/minigame/tape.unity
+    guid: ff060a6a7dc76944ebf6e0b79d86b7c3
+  - enabled: 1
+    path: Assets/Scenes/UI/dialogue.unity
+    guid: a15c923795fac134c84c9f17f4373a20
+  - enabled: 1
+    path: Assets/Scenes/UI/map.unity
+    guid: 39148fb7d84f42e45927b62adde32605
+  - enabled: 1
+    path: Assets/Scenes/last.unity
+    guid: 3b255240c1d2fbb4f9849923300f211e
   m_configObjects: {}
