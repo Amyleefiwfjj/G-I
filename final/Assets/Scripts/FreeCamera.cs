@@ -29,8 +29,8 @@ public class FreeCameraWithPickup : MonoBehaviour
         Cursor.visible = false;
 
         // 처음에는 인벤토리 메시지를 숨김
-        if (promptText != null)
-            promptText.gameObject.SetActive(false);
+        promptText.text = "G키를 눌러 화면 고정하세요";
+        promptText.gameObject.SetActive(true); // 메시지 표시
     }
 
     void Update()
@@ -93,6 +93,7 @@ public class FreeCameraWithPickup : MonoBehaviour
             float lookX = Input.GetAxis("Mouse X");
             float lookY = Input.GetAxis("Mouse Y");
             transform.eulerAngles += new Vector3(-lookY, lookX, 0);
+
         }
     }
 
@@ -143,10 +144,7 @@ public class FreeCameraWithPickup : MonoBehaviour
                         promptText.text = "인벤토리에 넣으시겠습니까? (E 키)";
                         promptText.gameObject.SetActive(true); // 메시지 표시
                     }
-                    else
-                    {
-                        HidePrompt(); // 메시지 숨기기
-                    }
+
                 }
             }
         }
